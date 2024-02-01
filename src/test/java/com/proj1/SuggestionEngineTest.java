@@ -40,12 +40,11 @@ public class SuggestionEngineTest {
     @Test
     public void testSuggestionsAsMock() throws IOException {
         Map<String,Integer> wordMapForTest = new HashMap<>();
-        suggestionEngine.loadDictionaryData( Paths.get( ClassLoader.getSystemResource("words.txt").getPath()));
-
         wordMapForTest.put("test", 1);
 
         Mockito.when(mockSuggestionDB.getWordMap()).thenReturn(wordMapForTest);
 
+        SuggestionEngine suggestionEngine = new SuggestionEngine();
         suggestionEngine.setWordSuggestionDB(mockSuggestionDB);
 
         Assertions.assertFalse(suggestionEngine.generateSuggestions("test").contains("test"));
