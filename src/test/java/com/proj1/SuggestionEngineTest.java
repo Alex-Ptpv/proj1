@@ -7,13 +7,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
 @ExtendWith(MockitoExtension.class)
 public class SuggestionEngineTest {
-    private SuggestionEngine suggestionEngine = new SuggestionEngine();
+    private final SuggestionEngine suggestionEngine = new SuggestionEngine();
 
     @Mock
     private SuggestionsDatabase mockSuggestionDB;
@@ -37,8 +38,9 @@ public class SuggestionEngineTest {
     }
 
     @Test
-    public void testSuggestionsAsMock() {
+    public void testSuggestionsAsMock() throws IOException {
         Map<String,Integer> wordMapForTest = new HashMap<>();
+        suggestionEngine.loadDictionaryData( Paths.get( ClassLoader.getSystemResource("words.txt").getPath()));
 
         wordMapForTest.put("test", 1);
 
@@ -52,7 +54,7 @@ public class SuggestionEngineTest {
     }
 
     @Test
-    public void testGenerateSuggestionsEmptyDictionary() throws Exception {
+    public void testGenerateSuggestionsEmptyDictionary() {
         String result = suggestionEngine.generateSuggestions("hello");
         Assertions.assertFalse(result.contains("hello"));
     }
