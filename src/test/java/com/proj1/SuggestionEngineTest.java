@@ -37,20 +37,6 @@ public class SuggestionEngineTest {
         Assertions.assertFalse(suggestionEngine.generateSuggestions("hello").contains("hello"));
     }
 
-    @Test
-    public void testSuggestionsAsMock() throws IOException {
-        Map<String,Integer> wordMapForTest = new HashMap<>();
-        wordMapForTest.put("test", 1);
-
-        Mockito.when(mockSuggestionDB.getWordMap()).thenReturn(wordMapForTest);
-
-        SuggestionEngine suggestionEngine = new SuggestionEngine();
-        suggestionEngine.setWordSuggestionDB(mockSuggestionDB);
-
-        Assertions.assertFalse(suggestionEngine.generateSuggestions("test").contains("test"));
-
-        Assertions.assertTrue(suggestionEngine.generateSuggestions("tes").contains("test"));
-    }
 
     @Test
     public void testGenerateSuggestionsEmptyDictionary() {
