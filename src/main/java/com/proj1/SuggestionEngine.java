@@ -16,7 +16,7 @@ public class SuggestionEngine {
     private SuggestionsDatabase wordSuggestionDB;
 
     /**
-     *   Based on algorithm from http://norvig.com/spell-correct.html
+     *   Based on algorithm from <a href="http://norvig.com/spell-correct.html">...</a>
      *   Specifically the second part which describes how to create a Candidate Model in order to determine a list of
      *   words that the user may be trying to input.
      */
