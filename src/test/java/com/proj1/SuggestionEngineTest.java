@@ -50,4 +50,26 @@ public class SuggestionEngineTest {
 
         Assertions.assertTrue(suggestionEngine.generateSuggestions("tes").contains("test"));
     }
+
+    @Test
+    public void testGenerateSuggestionsEmptyDictionary() throws Exception {
+        String result = suggestionEngine.generateSuggestions("hello");
+        Assertions.assertFalse(result.contains("hello"));
+    }
+
+    @Test
+    public void testGenerateSuggestionsWithSpecialCharacters() throws Exception {
+        suggestionEngine.loadDictionaryData(Paths.get(ClassLoader.getSystemResource("words.txt").getPath()));
+
+        String result = suggestionEngine.generateSuggestions("h@llo");
+        Assertions.assertTrue(result.contains("hello"));
+    }
+
+    @Test
+    public void testGenerateSuggestionsWithNumbers() throws Exception {
+        suggestionEngine.loadDictionaryData(Paths.get(ClassLoader.getSystemResource("words.txt").getPath()));
+
+        String result = suggestionEngine.generateSuggestions("h32llo");
+        Assertions.assertTrue(result.contains("hello"));
+    }
 }
